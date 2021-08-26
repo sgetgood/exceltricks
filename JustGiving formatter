@@ -1,0 +1,57 @@
+Sub justgiving()
+'
+' justgiving Macro
+'
+
+'
+    Worksheets("Summary").Activate
+    Columns("A:R").Select
+    Selection.Copy
+    Sheets("Paste as values").Select
+    Range("A1").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Columns("L:L").Select
+    Application.CutCopyMode = False
+    Selection.NumberFormat = "m/d/yyyy"
+    Range("S2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IFERROR(VLOOKUP(RC[-3],'Tribute Export'!C[-18]:C[-17],2,FALSE),"""")"
+    Selection.AutoFill Destination:=Range("S2:S" & Range("A" & Rows.Count).End(xlUp).Row)
+    Range(Selection, Selection.End(xlDown)).Select
+    ActiveSheet.Range("A1").CurrentRegion.RemoveDuplicates Columns:=2, Header:= _
+        xlYes
+    Columns("P:P").Select
+    Selection.Replace What:="t: ", Replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+    Selection.Replace What:="t ", Replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+    Selection.Replace What:="t-", Replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+    Range("P1").Select
+    ActiveWorkbook.Worksheets("Paste as values").Sort.SortFields.Clear
+    ActiveWorkbook.Worksheets("Paste as values").Sort.SortFields.Add Key:=Range( _
+        "P1"), SortOn:=xlSortOnValues, Order:=xlDescending, DataOption:= _
+        xlSortNormal
+    With ActiveWorkbook.Worksheets("Paste as values").Sort
+        .SetRange Range("A2:U83")
+        .Header = xlNo
+        .MatchCase = False
+        .Orientation = xlTopToBottom
+        .SortMethod = xlPinYin
+        .Apply
+    End With
+    Columns(3).EntireColumn.Delete
+    Range("A1:U83").Select
+    Range("L21").Activate
+    Selection.Copy
+    Workbooks.Add
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Columns("K:K").Select
+    Application.CutCopyMode = False
+    Selection.NumberFormat = "m/d/yyyy"
+End Sub
