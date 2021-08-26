@@ -1,0 +1,10 @@
+Sub Autofill()
+'
+' Autofill Macro
+'
+' Keyboard Shortcut: Ctrl+Shift+D
+'
+    Range(Selection, ActiveCell.SpecialCells(xlLastCell)).Select
+    Selection.DataSeries Rowcol:=xlColumns, Type:=xlAutoFill, Date:=xlDay, _
+        Trend:=False
+End Sub
