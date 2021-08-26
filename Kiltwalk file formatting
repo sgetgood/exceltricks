@@ -1,0 +1,66 @@
+Sub KiltwalkFormatter()
+'
+' Kiltwalk Macro
+'
+
+'
+    Worksheets("Output").Activate
+    Range("O1").Select
+    Application.CutCopyMode = False
+    With Selection.Interior
+        .Pattern = xlSolid
+        .PatternColorIndex = xlAutomatic
+        .Color = 13684944
+        .TintAndShade = 0
+        .PatternTintAndShade = 0
+    End With
+    With Selection
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    ActiveCell.FormulaR1C1 = "Formula"
+    Range("O2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=SUBSTITUTE(SUBSTITUTE(RC[-8],CHAR(10),""""),CHAR(13),"";"")"
+    Selection.AutoFill Destination:=Range("O2:O" & Range("A" & Rows.Count).End(xlUp).Row)
+    Range(Selection, Selection.End(xlDown)).Select
+    Columns("O:O").Select
+    Selection.Copy
+    Range("P1").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Selection.TextToColumns Destination:=Range("P1"), DataType:=xlDelimited, _
+        TextQualifier:=xlDoubleQuote, ConsecutiveDelimiter:=False, Tab:=True, _
+        Semicolon:=True, Comma:=False, Space:=False, Other:=False, FieldInfo _
+        :=Array(Array(1, 2), Array(2, 2), Array(3, 2), Array(4, 2), Array(5, 2), Array(6, 2)), _
+        TrailingMinusNumbers:=True
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = "Pasted as values"
+    Range("Q1").Select
+    ActiveCell.FormulaR1C1 = "Name"
+    Range("R1").Select
+    ActiveCell.FormulaR1C1 = "Address Line 1"
+    Range("S1").Select
+    ActiveCell.FormulaR1C1 = "Address Line 2"
+    Range("T1").Select
+    ActiveCell.FormulaR1C1 = "Town"
+    Range("U1").Select
+    ActiveCell.FormulaR1C1 = "Postcode"
+    Range("V1").Select
+    ActiveCell.FormulaR1C1 = "Country"
+        Set wb = Workbooks.Add
+    ThisWorkbook.Sheets("Output").Copy Before:=wb.Sheets(1)
+        Cells.Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+
+End Sub
+
