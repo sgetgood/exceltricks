@@ -19,7 +19,7 @@ Sub justgiving()
         "=IFERROR(VLOOKUP(RC[-3],'Tribute Export'!C[-18]:C[-17],2,FALSE),"""")"
     Selection.AutoFill Destination:=Range("S2:S" & Range("A" & Rows.Count).End(xlUp).Row)
     Range(Selection, Selection.End(xlDown)).Select
-    ActiveSheet.Range("A1").CurrentRegion.RemoveDuplicates Columns:=2, Header:= _
+    ActiveSheet.Range("A1").CurrentRegion.RemoveDuplicates Columns:=Array(1, 2, 18), Header:= _
         xlYes
     Columns("P:P").Select
     Selection.Replace What:="t: ", Replacement:="", LookAt:=xlPart, _
@@ -45,8 +45,9 @@ Sub justgiving()
         .Apply
     End With
     Columns(3).EntireColumn.Delete
-    Range("A1:U83").Select
-    Range("L21").Activate
+    Range("A1").Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlDown)).Select
     Selection.Copy
     Workbooks.Add
     Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
@@ -55,3 +56,5 @@ Sub justgiving()
     Application.CutCopyMode = False
     Selection.NumberFormat = "m/d/yyyy"
 End Sub
+
+
