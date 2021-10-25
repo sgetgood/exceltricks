@@ -15,7 +15,7 @@
 
 ---
 
-### Pull the Dignity or Anon gift ID from the JG file (help)
+### Pull the Dignity or Anon gift ID from the JG file
 
 Relies on the anon record ID - currently 21-1868. Replace as needed.
 
