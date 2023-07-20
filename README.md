@@ -1,11 +1,5 @@
 # exceltricks
 
-
-### Return nothing if there's no result in VLOOKUP  
-
-	=IFERROR(VLOOKUP('TabName'!C2,'TabName'!A:B,2,FALSE),"")
-  
-  ---
   
 ### Lookup a Value in Two Columns
 
